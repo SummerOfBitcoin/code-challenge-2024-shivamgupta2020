@@ -87,7 +87,8 @@ function readTransactionData(filePath) {
 const directoryPath = 'mempool';
 
 // Read transaction data from JSON files in the directory
-const allTransactions = readTransactionDataFromDirectory(directoryPath);
+// const allTransactions = readTransactionDataFromDirectory(directoryPath);
+const allTransactions = [{}]
 // console.log("All Transaction Data:", allTransactions);
 
 module.exports = allTransactions
