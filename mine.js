@@ -21,12 +21,12 @@ function mineBlock(blockHeader) {
 }
 
 // Mine the block
-const blockHashReversed = mineBlock(blockHeader);
+mineBlock(blockHeader);
 
 const fs = require('fs');
-
-function generateOutputFile(blockHashReversed, coinbaseTransaction, transactionIDs) {
-    const outputContent = `${blockHashReversed}\n${coinbaseTransaction}\n${transactionIDs.join('\n')}`;
+const block_header = "01000000ab9e7165d4862c5129643ad6a6c5d173d21503d6c3ed671c7301000000000000996f96ddd10c297a8523d587a4d95c9cda31e8e5ddb096b6b7ec9b36ec559f998e412b515c98041a0771fb41"
+function generateOutputFile(block_header, coinbaseTransaction, transactionIDs) {
+    const outputContent = `${block_header}\n${coinbaseTransaction}\n${transactionIDs.join('\n')}`;
 
     fs.writeFile('output.txt', outputContent, (err) => {
         if (err) {
@@ -43,4 +43,4 @@ const transactionIDs = [
     "ff4ae0717d70d7fcabf663cf5a94c42595cc249ca31b30a895a634969136eb58",
 ];
 
-generateOutputFile(blockHashReversed, coinbaseTransaction, transactionIDs);
+generateOutputFile(block_header, coinbaseTransaction, transactionIDs);
