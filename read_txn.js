@@ -36,10 +36,13 @@ function readTransactionData(filePath) {
     try {
         const data = fs.readFileSync(filePath, 'utf8');
         const parsedData = JSON.parse(data);
-
+        
+        //read file name without extension
+        const fileName = path.basename(filePath, '.json');
         const modifiedTxn = {
             version: parsedData.version,
             locktime: parsedData.locktime,
+            filename: fileName,
             vin: [],
             vout: []
         };
@@ -57,8 +60,8 @@ function readTransactionData(filePath) {
                     value: input.prevout.value
                 },
                 scriptsig: input.scriptsig,
+                scriptsig_asm: input.scriptsig_asm,
                 witness: input.witness,
-                is_coinbase: input.is_coinbase,
                 sequence: input.sequence
             };
             modifiedTxn.vin.push(modifiedInput);
@@ -88,8 +91,8 @@ const directoryPath = 'mempool';
 
 // Read transaction data from JSON files in the directory
 // const allTransactions = readTransactionDataFromDirectory(directoryPath);
-const allTransactions = [{}]
-// console.log("All Transaction Data:", allTransactions);
+const allTransactions = readTransactionDataFromDirectory(directoryPath)
+
 
 module.exports = allTransactions
 
