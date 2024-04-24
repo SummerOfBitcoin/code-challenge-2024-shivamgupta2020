@@ -2,7 +2,7 @@ const {merkleRootTxid} = require('./create_merkle_txid.js')
 const { decimalToLittleEndian8, bigToLittleEndian } = require('./utils.js');
 
 const block = {
-    version: 2,
+    version: 4,
     previousBlockHash: "0000000000000000000000000000000000000000000000000000000000000000",
     merkleRootHash: merkleRootTxid,
     timeStamp: Math.floor(Date.now() / 1000),

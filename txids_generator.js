@@ -35,6 +35,6 @@ function wtxids_generator(){
 }
 
 // const txids = txids_generator(valid_transactions);
-const txids = ["dc21d703be0b88a92e74c7e9bdd7af1b0922421872a9f06cbafdd0a535e624f1"]
+const txids = ["33808454bed042d7a813d094db293c9a7920eee07492b26930a0e6dffbc3dfbc"]
 // const wtxids = wtxids_generator(valid_transactions);
 module.exports = { txids};
