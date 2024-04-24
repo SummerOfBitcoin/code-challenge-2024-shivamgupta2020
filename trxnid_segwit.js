@@ -1,14 +1,43 @@
-const { decimalToLittleEndian8, decimalToLittleEndian16, intToTwoCharString, hash256, bigToLittleEndian } = require('./utils.js');
+const { decimalToLittleEndian8, decimalToLittleEndian16, intToTwoCharString,sha256, hash256, bigToLittleEndian } = require('./utils.js');
 
-function serialize_trxn_segwit(transaction) {
+function trxnid_segwit(transaction) {
     var serialized = ""
     serialized += decimalToLittleEndian8(transaction.version);
+    // serialized += "0001"
     serialized += intToTwoCharString(transaction.vin.length);
     transaction.vin.forEach(input => {
         serialized += bigToLittleEndian(input.txid);
         serialized += decimalToLittleEndian8(input.vout);
-        serialized += "00"
-        serialized += input.sequence.toString(16);
+        serialized += intToTwoCharString(input.scriptsig.length / 2);
+        serialized += bigToLittleEndian(input.sequence.toString(16));
+    })
+    serialized += intToTwoCharString(transaction.vout.length);
+    transaction.vout.forEach(output => {
+        serialized += decimalToLittleEndian16((output.value))
+        serialized += (output.scriptpubkey.length / 2).toString(16);
+        serialized += output.scriptpubkey;
+    })
+    // serialized += intToTwoCharString(input.witness.length);
+    // transaction.vin.forEach(input => {
+    //     input.witness.forEach(wit => {
+    //         serialized += ((wit.length) / 2).toString(16);
+    //         serialized += wit;
+    //     })
+    // })
+    serialized += decimalToLittleEndian8(transaction.locktime)
+    return serialized;
+}
+
+function serialize_trxn_segwit(transaction) {
+    var serialized = ""
+    serialized += decimalToLittleEndian8(transaction.version);
+    serialized += "0001"
+    serialized += intToTwoCharString(transaction.vin.length);
+    transaction.vin.forEach(input => {
+        serialized += bigToLittleEndian(input.txid);
+        serialized += decimalToLittleEndian8(input.vout);
+        serialized += intToTwoCharString(input.scriptsig.length / 2);
+        serialized += bigToLittleEndian(input.sequence.toString(16));
     })
     serialized += intToTwoCharString(transaction.vout.length);
     transaction.vout.forEach(output => {
@@ -17,24 +46,26 @@ function serialize_trxn_segwit(transaction) {
         serialized += output.scriptpubkey;
     })
     transaction.vin.forEach(input => {
-        serialized += "02"
-        if(typeof input.witness === 'undefined' || input.witness.length !== 2) {
-            return "Invalid witness length"
-        }
-        serialized += ((input.witness[0].length) / 2).toString(16);
-        serialized += input.witness[0];
-        serialized += ((input.witness[1].length) / 2).toString(16);
-        serialized += input.witness[1];
+        serialized += intToTwoCharString(input.witness.length);
+        input.witness.forEach(wit => {
+            serialized += ((wit.length) / 2).toString(16);
+            serialized += wit;
+        })
     })
     serialized += decimalToLittleEndian8(transaction.locktime)
     return serialized;
 }
 
-function hash_trxn_segwit(trxn) {
-    if(serialize_trxn_segwit(trxn) === "Invalid witness length") {
-        return false
-    }
-    return hash256(serialize_trxn_segwit(trxn));
+function segwit_trxnid(trxn) {
+    const trxnid = ((hash256((trxnid_segwit(trxn)))));
+    const trxnid_reverse = ((bigToLittleEndian(trxnid)));
+    const trxn_filename = sha256(trxnid_reverse);
+    return trxnid_reverse;
 }
 
-module.exports = {hash_trxn_segwit};
+function segwit_serialized(trxn){
+    const serialized = serialize_trxn_segwit(trxn);
+    return serialized;
+}
+
+module.exports = {segwit_serialized, segwit_trxnid};

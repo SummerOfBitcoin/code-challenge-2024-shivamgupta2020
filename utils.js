@@ -25,11 +25,14 @@ function hash160(str) {
 function hash256(str) {
     // Convert hex string to Buffer
     const message = Buffer.from(str, 'hex');
-
     const sha256Msg = crypto.createHash('sha256').update(Buffer.from(message, 'hex')).digest('hex');
     const hash256Msg = crypto.createHash('sha256').update(Buffer.from(sha256Msg, 'hex')).digest('hex');
     return hash256Msg;
 
+}
+
+function sha256(str) {
+    return crypto.createHash('sha256').update(Buffer.from(str, 'hex')).digest('hex');
 }
 
 function createAddress_p2pkh(str) {
@@ -124,5 +127,6 @@ module.exports = {
     intToTwoCharString,
     intTo16CharHexString,
     bigToLittleEndian,
-    hash256
+    hash256, 
+    sha256
 }

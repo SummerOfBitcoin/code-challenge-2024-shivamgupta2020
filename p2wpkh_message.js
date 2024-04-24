@@ -82,6 +82,7 @@ function ecdsa_verify_p2wpkh(transaction) {
         return false;
       }
     }
+    return true
   }
 /*
 01000000

@@ -1,6 +1,6 @@
-const { decimalToLittleEndian8, decimalToLittleEndian16, intToTwoCharString, hash256, bigToLittleEndian } = require('./utils.js');
+const { decimalToLittleEndian8, decimalToLittleEndian16, intToTwoCharString, hash256, sha256, bigToLittleEndian } = require('./utils.js');
 
-function serialize_trxn_legacy(transaction) {
+function legacy_serialized(transaction) {
     var serialized = ""
     serialized += decimalToLittleEndian8(transaction.version);
     serialized += intToTwoCharString(transaction.vin.length);
@@ -9,7 +9,7 @@ function serialize_trxn_legacy(transaction) {
         serialized += decimalToLittleEndian8(input.vout);
         serialized += ((input.scriptsig.length) / 2).toString(16);
         serialized += input.scriptsig;
-        serialized += input.sequence.toString(16);
+        serialized += bigToLittleEndian(input.sequence.toString(16));
     })
     serialized += intToTwoCharString(transaction.vout.length);
     transaction.vout.forEach(output => {
@@ -21,8 +21,14 @@ function serialize_trxn_legacy(transaction) {
     return serialized;
 }
 
-function hash_trxn_legacy(trxn) {
-    return hash256(serialize_trxn_legacy(trxn));
+function legacy_trxnid(trxn) {
+    const trxnid = ((hash256((legacy_serialized(trxn)))));
+    const trxnid_reverse = (bigToLittleEndian(trxnid));
+    const trxn_filename = sha256(trxnid_reverse);
+    return trxnid_reverse;
 }
 
-module.exports = {hash_trxn_legacy};
+
+module.exports = { legacy_trxnid, legacy_serialized};
+
+

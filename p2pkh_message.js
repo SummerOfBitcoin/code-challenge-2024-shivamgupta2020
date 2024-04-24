@@ -76,6 +76,7 @@ function ecdsa_verify_p2pkh(transaction) {
       return false
     }
   }
+  return true
 }
 
 //working fucntion=----------------------------
