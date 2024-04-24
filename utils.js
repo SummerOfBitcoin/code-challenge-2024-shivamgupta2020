@@ -62,7 +62,6 @@ function decimalToLittleEndian8(decimal) {
     // Join the bytes into a string
     return littleEndianBytes.join('');
 }
-
 function decimalToLittleEndian16(intString) {
     // Convert the string to a number
     const num = parseInt(intString, 10);

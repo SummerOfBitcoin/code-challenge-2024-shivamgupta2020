@@ -1,5 +1,5 @@
 const {merkleRootTxid} = require('./create_merkle_txid.js')
-const { decimalToLittleEndian8 } = require('./utils.js');
+const { decimalToLittleEndian8, bigToLittleEndian } = require('./utils.js');
 
 const block = {
     version: 2,
@@ -15,8 +15,8 @@ function createBlockHeader(x){
     blockheader += decimalToLittleEndian8(x.version);
     blockheader += (x.previousBlockHash);
     blockheader += (x.merkleRootHash);
-    blockheader += decimalToLittleEndian8(x.timestamp);
-    blockheader += "1f00ffff"
+    blockheader += bigToLittleEndian(x.timeStamp.toString(16));
+    blockheader += decimalToLittleEndian8("1f00ffff")
     return blockheader;
 }
 
