@@ -2,8 +2,6 @@ const crypto = require('crypto');
 const {txids} = require('./txids_generator.js');
 const { hash256 } = require('./utils.js');
 
-//
-
 function buildMerkleTree(transaction) {
     
     function computeMerkleRoot(hashes) {

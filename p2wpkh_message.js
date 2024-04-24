@@ -1,4 +1,3 @@
-const { create } = require('domain');
 const { decimalToLittleEndian8, decimalToLittleEndian16, hash256, intTo16CharHexString, intToTwoCharString, bigToLittleEndian } = require('./utils.js');
 const crypto = require('crypto');
 const EC = require('elliptic').ec;
@@ -71,11 +70,10 @@ function ecdsa_verify_p2wpkh(transaction) {
       const message = messages[i]
       const sha256Msg = crypto.createHash('sha256').update(Buffer.from(message, 'hex')).digest('hex');
       const hash256Msg = crypto.createHash('sha256').update(Buffer.from(sha256Msg, 'hex')).digest('hex');
-
       // signature in hex format
       const publicKeyHex = transaction.vin[i].witness[1]
       const signature = transaction.vin[i].witness[0].slice(0, -2)
-      
+
       const publicKey = ec.keyFromPublic(publicKeyHex, 'hex')
       //return false if verification fails
       if (!publicKey.verify(hash256Msg, signature)) {
@@ -96,5 +94,4 @@ ffffffff
 00000000
 01000000
 */
-
 module.exports = {ecdsa_verify_p2wpkh}

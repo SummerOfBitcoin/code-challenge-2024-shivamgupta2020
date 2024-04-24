@@ -1,12 +1,12 @@
 const {minedBlock} = require('./mine_block.js');
-const {coinbase_trxn} = require('./coinbase_transaction.js');
+const {final_serialized} = require('./coinbase_transaction.js');
 const {txids} = require('./txids_generator.js');
 const {bigToLittleEndian} = require('./utils.js');
 
 const fs = require('fs');
 
 // Sample array
-const array1 = [minedBlock, coinbase_trxn];
+const array1 = [minedBlock, final_serialized];
 //convert each element of the txids array to a little endian
 const array2 = txids.map(txid => bigToLittleEndian(txid));
 const array = array1.concat(array2);
