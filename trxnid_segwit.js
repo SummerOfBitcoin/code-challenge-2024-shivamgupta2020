@@ -67,5 +67,4 @@ function segwit_serialized(trxn){
     const serialized = serialize_trxn_segwit(trxn);
     return serialized;
 }
-
 module.exports = {segwit_serialized, segwit_trxnid};

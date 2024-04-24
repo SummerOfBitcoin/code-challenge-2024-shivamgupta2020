@@ -1,7 +1,5 @@
 const allTransactions = require('./read_txn.js');
 const crypto = require('crypto');
-const { bigToLittleEndian } = require('./utils.js');
-const { createAddress_p2pkh, createAddress_p2sh } = require('./utils.js');
 const { ecdsa_verify_p2wpkh } = require('./p2wpkh_message.js');
 
 console.log(allTransactions.length);

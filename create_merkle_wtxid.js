@@ -2,7 +2,7 @@ const crypto = require('crypto');
 const {wtxids} = require('./txids_generator.js');
 const { hash256 } = require('./utils.js');
 
-//
+
 function buildMerkleTree(transaction) {
     transaction.unshift("0000000000000000000000000000000000000000000000000000000000000000");
 
@@ -31,5 +31,4 @@ function buildMerkleTree(transaction) {
 }
 
 const merkleRoot_wtxid = buildMerkleTree(wtxids);
-console.log(merkleRoot_wtxid);
 module.exports = {merkleRoot_wtxid}
