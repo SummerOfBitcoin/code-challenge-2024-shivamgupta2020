@@ -24,7 +24,7 @@ function mineBlock() {
 
 const minedBlock = mineBlock()
 module.exports = {minedBlock}
-// console.log(mineBlock())
+console.log(mineBlock())
 /*
 
 07000000

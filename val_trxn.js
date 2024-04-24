@@ -7,35 +7,35 @@ const { ecdsa_verify_p2wpkh } = require('./p2wpkh_message.js');
 // console.log(allTransactions.length);
 
 //check if the transaction id is present in the UTXO set
-function check_txid_utxo(allTransactions) {
-    const txid = [];
-    allTransactions.forEach((transaction) => {
-        transaction.vin.forEach((input) => {
-            //txid array is populated with sha256 hash of the transaction id
-            txid.push(crypto.createHash('sha256').update(input.txid).digest('hex'));
-        })
-    })
+// function check_txid_utxo(allTransactions) {
+//     const txid = [];
+//     allTransactions.forEach((transaction) => {
+//         transaction.vin.forEach((input) => {
+//             //txid array is populated with sha256 hash of the transaction id
+//             txid.push(crypto.createHash('sha256').update(input.txid).digest('hex'));
+//         })
+//     })
 
-    const hash_trxn_id = [];
+//     const hash_trxn_id = [];
 
-    allTransactions.forEach((transaction) => {
-        //hash_trxn_id array is populated with file name
-        hash_trxn_id.push(transaction.filename);
-    })
+//     allTransactions.forEach((transaction) => {
+//         //hash_trxn_id array is populated with file name
+//         hash_trxn_id.push(transaction.filename);
+//     })
 
-    //check if trxn id is present in the hash_trxn_id array, if not present then remove the transaction from the allTransactions array
-    for (let i = 0; i < txid.length; i++) {
-        if (!hash_trxn_id.includes(txid[i])) {
-            allTransactions.splice(i, 1);
-        }
-        else {
-            //checks for double spend
-            if (txid.indexOf(txid[i]) !== txid.lastIndexOf(txid[i])) {
-                allTransactions.splice(i, 1);
-            }
-        }
-    }
-}
+//     //check if trxn id is present in the hash_trxn_id array, if not present then remove the transaction from the allTransactions array
+//     for (let i = 0; i < txid.length; i++) {
+//         if (!hash_trxn_id.includes(txid[i])) {
+//             allTransactions.splice(i, 1);
+//         }
+//         else {
+//             //checks for double spend
+//             if (txid.indexOf(txid[i]) !== txid.lastIndexOf(txid[i])) {
+//                 allTransactions.splice(i, 1);
+//             }
+//         }
+//     }
+// }
 
 
 function check_value(allTransactions) {
