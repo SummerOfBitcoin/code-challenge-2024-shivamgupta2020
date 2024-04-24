@@ -123,7 +123,7 @@ function validate_signature(allTransactions) {
     return valid;
 }
 
-check_txid_utxo(allTransactions)
+// check_txid_utxo(allTransactions)
 check_value(allTransactions)
 // check_input_format(allTransactions)
 // validate_signature(allTransactions)
