@@ -4,6 +4,7 @@ const { ecdsa_verify_p2wpkh } = require('./p2wpkh_message.js');
 
 console.log(allTransactions.length);
 function check_value(allTransactions) {
+    var fee = 0;
     allTransactions.forEach((transaction) => {
         let input_value = 0;
         let output_value = 0;
@@ -15,10 +16,16 @@ function check_value(allTransactions) {
             output_value += output.value;
         })
 
+
         if (input_value <= output_value) {
             allTransactions.splice(allTransactions.indexOf(transaction), 1);
         }
+        else{
+            fee += input_value - output_value;
+        }
+        
     })
+    return fee;
 }
 
 function check_type(transaction) {
@@ -36,7 +43,6 @@ function check_type(transaction) {
     return true;
 }
 
-check_value(allTransactions);
 
 
 function validate_signature(allTransactions) {
@@ -50,6 +56,9 @@ function validate_signature(allTransactions) {
     })
     return valid;
 }
+
+const fee = check_value(allTransactions);
+console.log(fee);
 
 const valid_transactions = validate_signature(allTransactions);
 console.log(valid_transactions.length);

@@ -21,7 +21,7 @@ function createBlockHeader(x){
 }
 
 const blockHeaderwithoutnounce = createBlockHeader(block)
-// console.log(blockHeaderwithoutnounce)
+console.log(blockHeaderwithoutnounce)
 module.exports = {blockHeaderwithoutnounce, block}
 
 /*

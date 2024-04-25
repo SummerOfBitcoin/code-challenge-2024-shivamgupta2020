@@ -4,7 +4,6 @@ const { hash256 } = require('./utils.js');
 
 
 function buildMerkleTree(transaction) {
-    transaction.unshift("0000000000000000000000000000000000000000000000000000000000000000");
 
     function computeMerkleRoot(hashes) {
         if (hashes.length === 1) {
@@ -31,4 +30,5 @@ function buildMerkleTree(transaction) {
 }
 
 const merkleRoot_wtxid = buildMerkleTree(wtxids);
+console.log(merkleRoot_wtxid);
 module.exports = {merkleRoot_wtxid}
