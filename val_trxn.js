@@ -37,7 +37,6 @@ const folderPath = './mempool'; // Update the path to your mempool folder
 const filesInMempool = readMempoolFiles(folderPath);
 
 
-console.log(allTransactions.length);
 function check_value(allTransactions) {
     var fee = 0;
     valid_transactions.forEach((transaction) => {
@@ -94,5 +93,3 @@ function validate_signature(allTransactions) {
 const valid_transactions = validate_signature(allTransactions);
 module.exports = { valid_transactions };
 const fee = check_value(allTransactions);
-console.log(fee);
-console.log(valid_transactions.length);

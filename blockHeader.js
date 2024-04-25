@@ -13,8 +13,6 @@ const block = {
     difficultyTarget: "0000ffff00000000000000000000000000000000000000000000000000000000",
     nonce: 0
 }
-console.log(block)
-
 function createBlockHeader(x){
     let blockheader = ""
     blockheader += "00000020";

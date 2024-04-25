@@ -12,7 +12,6 @@ function mineBlock() {
         const hash = bigToLittleEndian(hash256(data));
         // Check if hash meets the difficulty target
         if (hash < block.difficultyTarget) {
-            console.log(`Block mined with nonce: ${data}`);
             return data; // Return the valid nonce
         }
         nonce++; // Increment nonce for next attempt

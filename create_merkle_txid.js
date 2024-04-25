@@ -32,5 +32,4 @@ function buildMerkleTree(transaction) {
 }
 
 const merkleRootTxid = buildMerkleTree(txids); 
-console.log(merkleRootTxid);
 module.exports = {merkleRootTxid}
