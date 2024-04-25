@@ -17,7 +17,7 @@ console.log(block)
 
 function createBlockHeader(x){
     let blockheader = ""
-    blockheader += decimalToLittleEndian8(x.version);
+    blockheader += "00000020";
     blockheader += (x.previousBlockHash);
     blockheader += bigToLittleEndian(x.merkleRootHash);
     blockheader += x.timeStamp;
