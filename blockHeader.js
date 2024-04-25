@@ -21,7 +21,7 @@ function createBlockHeader(x){
     blockheader += (x.previousBlockHash);
     blockheader += (x.merkleRootHash);
     blockheader += x.timeStamp;
-    blockheader += decimalToLittleEndian8("1f00ffff")
+    blockheader += bigToLittleEndian("1f00ffff")
     return blockheader;
 }
 
