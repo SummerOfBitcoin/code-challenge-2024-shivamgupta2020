@@ -19,7 +19,7 @@ function createBlockHeader(x){
     let blockheader = ""
     blockheader += "00000020";
     blockheader += (x.previousBlockHash);
-    blockheader += bigToLittleEndian(x.merkleRootHash);
+    blockheader += (x.merkleRootHash);
     blockheader += x.timeStamp;
     blockheader += decimalToLittleEndian8("1f00ffff")
     return blockheader;
