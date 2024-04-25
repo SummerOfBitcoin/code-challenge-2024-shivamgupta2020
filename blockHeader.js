@@ -6,7 +6,7 @@ const hexTime = currentTimeInSeconds.toString(16);
 const hexTime_reverse = bigToLittleEndian(hexTime)
 
 const block = {
-    version: 2,//VERSION
+    version: 20000000,//VERSION
     previousBlockHash: "0000000000000000000000000000000000000000000000000000000000000000",
     merkleRootHash: merkleRootTxid,
     timeStamp: hexTime_reverse,
