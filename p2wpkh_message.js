@@ -2,7 +2,6 @@ const { decimalToLittleEndian8, decimalToLittleEndian16, hash256, intTo16CharHex
 const crypto = require('crypto');
 const EC = require('elliptic').ec;
 const ec = new EC('secp256k1');
-// const transaction = require('./mempool/0bfa0482c989e84f5d83e338cff2adaa9bd0bb99e4e276ed7dc913be76f8c543.json')
 // working for sngle input
 
 function hashInputs(inputs){

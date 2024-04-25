@@ -92,7 +92,5 @@ const directoryPath = 'mempool';
 // Read transaction data from JSON files in the directory
 // const allTransactions = readTransactionDataFromDirectory(directoryPath);
 const allTransactions = readTransactionDataFromDirectory(directoryPath)
-
-
 module.exports = allTransactions
 
