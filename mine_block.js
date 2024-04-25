@@ -1,6 +1,6 @@
 const crypto = require('crypto');
 const {blockHeaderwithoutnounce, block} = require('./blockHeader.js');
-const { decimalToLittleEndian8 } = require('./utils.js');
+const { decimalToLittleEndian8, hash256 } = require('./utils.js');
 
 
 // Function to mine the block
@@ -10,8 +10,7 @@ function mineBlock() {
         // Combine block header and nonce for hashing
         const data = blockHeaderwithoutnounce + decimalToLittleEndian8(nonce);
         // Calculate hash of the block header and nonce
-        const sha256data = crypto.createHash('sha256').update(data).digest('hex');
-        const hash = crypto.createHash('sha256').update(sha256data).digest('hex');
+        const hash = hash256(data);
         // Check if hash meets the difficulty target
         if (hash < block.difficultyTarget) {
             return data; // Return the valid nonce
