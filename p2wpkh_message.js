@@ -2,6 +2,7 @@ const { decimalToLittleEndian8, decimalToLittleEndian16, hash256, intTo16CharHex
 const crypto = require('crypto');
 const EC = require('elliptic').ec;
 const ec = new EC('secp256k1');
+// const transaction = require('./mempool/0bfa0482c989e84f5d83e338cff2adaa9bd0bb99e4e276ed7dc913be76f8c543.json')
 // working for sngle input
 
 function hashInputs(inputs){
@@ -14,7 +15,7 @@ function hashInputs(inputs){
 }
 function Input(array){
     var input = ""
-    input += bigToLittleEndian(array.txid);
+    input += bigToLittleEndian(array.txid); 
     input += decimalToLittleEndian8(array.vout);
     return (input);
 }
@@ -22,11 +23,10 @@ function Input(array){
 function hashSequence(inputs){
     var sequence = ""
     for (let i = 0; i < inputs.length; i++) {
-        sequence += inputs[i].sequence.toString(16);
+        sequence += bigToLittleEndian(inputs[i].sequence.toString(16));
     }
     return hash256(sequence);
 }
-
 
 function scriptCodeGenerator(input){
     var scriptCode = "1976a914";
@@ -38,7 +38,7 @@ function hashOutputs(outputs){
     var output = ""
     for (let i = 0; i < outputs.length; i++) {
         output += decimalToLittleEndian16(outputs[i].value);
-        output += (outputs[i].scriptpubkey.length/2).toString(16);
+        output += intToTwoCharString(outputs[i].scriptpubkey.length/2);
         output += outputs[i].scriptpubkey;
     }
     return hash256(output);
@@ -68,8 +68,7 @@ function ecdsa_verify_p2wpkh(transaction) {
     const messages = create_message(transaction);
     for (let i = 0; i < messages.length; i++) {
       const message = messages[i]
-      const sha256Msg = crypto.createHash('sha256').update(Buffer.from(message, 'hex')).digest('hex');
-      const hash256Msg = crypto.createHash('sha256').update(Buffer.from(sha256Msg, 'hex')).digest('hex');
+      const hash256Msg = hash256(message)
       // signature in hex format
       const publicKeyHex = transaction.vin[i].witness[1]
       const signature = transaction.vin[i].witness[0].slice(0, -2)
@@ -82,16 +81,5 @@ function ecdsa_verify_p2wpkh(transaction) {
     }
     return true
   }
-/*
-01000000
-7200d0a4f4d71b73306147f6e62b045178354efc11d84ef9cabb9a2d9b59c6b0
-3bb13029ce7b1f559ef5e747fcac439f1455a2ec7c5f09b72290795e70665044
-c7a1682bdf54913a4d825b4f1b79ae9c3ad0638cb70ed4e60cab88ab39a5de2601000000
-1976a914d817581d6c580afe261df66d2e2d5e8b809cd9f988ac
-2349aa0200000000
-ffffffff
-5ce9a8aba8c687ae235f2630d8526e249b5e38e9cca8d04865a52440c37afd61
-00000000
-01000000
-*/
+
 module.exports = {ecdsa_verify_p2wpkh}

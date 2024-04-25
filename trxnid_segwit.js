@@ -14,7 +14,7 @@ function trxnid_segwit(transaction) {
     serialized += intToTwoCharString(transaction.vout.length);
     transaction.vout.forEach(output => {
         serialized += decimalToLittleEndian16((output.value))
-        serialized += (output.scriptpubkey.length / 2).toString(16);
+        serialized += intToTwoCharString(output.scriptpubkey.length / 2)
         serialized += output.scriptpubkey;
     })
     // serialized += intToTwoCharString(input.witness.length);
@@ -42,13 +42,13 @@ function serialize_trxn_segwit(transaction) {
     serialized += intToTwoCharString(transaction.vout.length);
     transaction.vout.forEach(output => {
         serialized += decimalToLittleEndian16((output.value))
-        serialized += (output.scriptpubkey.length / 2).toString(16);
+        serialized += intToTwoCharString(output.scriptpubkey.length / 2);
         serialized += output.scriptpubkey;
     })
     transaction.vin.forEach(input => {
         serialized += intToTwoCharString(input.witness.length);
         input.witness.forEach(wit => {
-            serialized += ((wit.length) / 2).toString(16);
+            serialized += intToTwoCharString((wit.length) / 2);
             serialized += wit;
         })
     })

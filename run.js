@@ -1,7 +1,6 @@
 const {minedBlock} = require('./mine_block.js');
 const {final_serialized} = require('./coinbase_transaction.js');
 const {txids} = require('./txids_generator.js');
-const {bigToLittleEndian} = require('./utils.js');
 
 const fs = require('fs');
 

@@ -1,4 +1,3 @@
-const crypto = require('crypto');
 const {txids} = require('./txids_generator.js');
 const { hash256, bigToLittleEndian } = require('./utils.js');
 

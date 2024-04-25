@@ -6,7 +6,7 @@ const { segwit_wtrxnid } = require('./wtxid_segwit.js');
 //add a txid in front of the valid_transactions array
 
 function txids_generator(transactions) {
-    var txids_array = ["d9758e0654dd678db4d875b606a5992a8e66cdf9cc8396c50e40b44a793292d8"];
+    var txids_array = ["3adddda141e970223ee28a7d063f65071a5b896efa40ae00552120a0475a817f"];
     transactions.forEach(transaction => {
         {
             txids_array.push(segwit_trxnid(transaction));

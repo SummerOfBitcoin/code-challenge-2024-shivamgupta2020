@@ -1,5 +1,4 @@
 const { decimalToLittleEndian8, decimalToLittleEndian16, intToTwoCharString,sha256, hash256, bigToLittleEndian } = require('./utils.js');
-const trxn = require('./mempool/0b23caae0dc80d697be1206fc7c652c6460425bff04a6b0a4a5cd5791e09a209.json')
 
 function wtrxnid_segwit(transaction) {
     var serialized = ""
@@ -15,14 +14,13 @@ function wtrxnid_segwit(transaction) {
     serialized += intToTwoCharString(transaction.vout.length);
     transaction.vout.forEach(output => {
         serialized += decimalToLittleEndian16((output.value))
-        serialized += (output.scriptpubkey.length / 2).toString(16);
+        serialized += intToTwoCharString(output.scriptpubkey.length / 2);
         serialized += output.scriptpubkey;
     })
     transaction.vin.forEach(input => {
-        
         serialized += intToTwoCharString(input.witness.length);
         input.witness.forEach(wit => {
-            serialized += ((wit.length) / 2).toString(16);
+            serialized += intToTwoCharString((wit.length) / 2);
             serialized += wit;
         })
     })
@@ -31,15 +29,10 @@ function wtrxnid_segwit(transaction) {
 }
 
 function segwit_wtrxnid(trxn) {
-    const trxnid = ((hash256((wtrxnid_segwit(trxn)))));
-    const trxnid_reverse = ((bigToLittleEndian(trxnid)));
-    return trxnid_reverse;
-}
-
-function segwit_serialized_wtxid(trxn){
-    const serialized = wtrxnid_segwit(trxn);
-    return serialized;
+    const wtrxnid = ((hash256((wtrxnid_segwit(trxn)))));
+    const wtrxnid_reverse = ((bigToLittleEndian(wtrxnid)));
+    return wtrxnid_reverse;
 }
 
 // module.exports = {hash_trxn_segwit};
-module.exports = {segwit_serialized_wtxid, segwit_wtrxnid};
+module.exports = {segwit_wtrxnid};

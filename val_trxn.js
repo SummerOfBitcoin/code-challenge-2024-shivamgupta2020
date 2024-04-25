@@ -20,10 +20,10 @@ function check_value(allTransactions) {
         if (input_value <= output_value) {
             allTransactions.splice(allTransactions.indexOf(transaction), 1);
         }
-        else{
+        else {
             fee += input_value - output_value;
         }
-        
+
     })
     return fee;
 }
@@ -31,7 +31,7 @@ function check_value(allTransactions) {
 function check_type(transaction) {
     for (let j = 1; j < transaction.vin.length; j++) {
         //check that each input has same type of scriptpubkey
-        if (transaction.vin[j].prevout.scriptpubkey_type !== transaction.vin[0].prevout.scriptpubkey_type ) {
+        if (transaction.vin[j].prevout.scriptpubkey_type !== transaction.vin[0].prevout.scriptpubkey_type) {
             return false;
         }
     }
@@ -47,8 +47,7 @@ function check_type(transaction) {
 function validate_signature(allTransactions) {
     var valid = []
     allTransactions.forEach((transaction) => {
-        if (check_type(transaction)) {
-            if(ecdsa_verify_p2wpkh(transaction)) {
+        if (check_type(transaction) && ecdsa_verify_p2wpkh(transaction)) {{
                 valid.push(transaction);
             }
         }
