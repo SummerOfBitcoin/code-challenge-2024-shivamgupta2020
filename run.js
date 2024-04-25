@@ -8,7 +8,7 @@ const fs = require('fs');
 // Sample array
 const array1 = [minedBlock, final_serialized];
 //convert each element of the txids array to a little endian
-const array2 = txids.map(txid => bigToLittleEndian(txid));
+const array2 = txids;
 const array = array1.concat(array2);
 
 // File path

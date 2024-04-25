@@ -13,6 +13,7 @@ function mineBlock() {
         const hash = hash256(data);
         // Check if hash meets the difficulty target
         if (hash < block.difficultyTarget) {
+            console.log(hash);
             return data; // Return the valid nonce
         }
         nonce++; // Increment nonce for next attempt

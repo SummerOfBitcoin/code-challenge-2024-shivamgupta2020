@@ -5,7 +5,7 @@ const { ecdsa_verify_p2wpkh } = require('./p2wpkh_message.js');
 console.log(allTransactions.length);
 function check_value(allTransactions) {
     var fee = 0;
-    allTransactions.forEach((transaction) => {
+    valid_transactions.forEach((transaction) => {
         let input_value = 0;
         let output_value = 0;
         transaction.vin.forEach((input) => {
@@ -44,7 +44,6 @@ function check_type(transaction) {
 }
 
 
-
 function validate_signature(allTransactions) {
     var valid = []
     allTransactions.forEach((transaction) => {
@@ -57,9 +56,9 @@ function validate_signature(allTransactions) {
     return valid;
 }
 
-const fee = check_value(allTransactions);
-console.log(fee);
 
 const valid_transactions = validate_signature(allTransactions);
-console.log(valid_transactions.length);
 module.exports = { valid_transactions };
+const fee = check_value(allTransactions);
+console.log(fee);
+console.log(valid_transactions.length);

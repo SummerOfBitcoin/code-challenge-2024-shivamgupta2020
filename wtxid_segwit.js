@@ -33,7 +33,7 @@ function wtrxnid_segwit(transaction) {
 function segwit_wtrxnid(trxn) {
     const trxnid = ((hash256((wtrxnid_segwit(trxn)))));
     const trxnid_reverse = ((bigToLittleEndian(trxnid)));
-    return trxnid;
+    return trxnid_reverse;
 }
 
 function segwit_serialized_wtxid(trxn){

@@ -1,6 +1,6 @@
 const crypto = require('crypto');
 const {wtxids} = require('./txids_generator.js');
-const { hash256 } = require('./utils.js');
+const { hash256 , bigToLittleEndian} = require('./utils.js');
 
 
 function buildMerkleTree(transaction) {
@@ -17,7 +17,7 @@ function buildMerkleTree(transaction) {
         const newHashes = [];
 
         for (let i = 0; i < hashes.length; i += 2) {
-            const concatenatedHash = hashes[i] + hashes[i + 1];
+            const concatenatedHash = bigToLittleEndian(hashes[i]) + bigToLittleEndian(hashes[i + 1]);
             const newHash = hash256(concatenatedHash);
             newHashes.push(newHash);
         }
@@ -25,7 +25,7 @@ function buildMerkleTree(transaction) {
         // Recursively compute the Merkle root hash with the new hashes
         return computeMerkleRoot(newHashes);
     }
-    const merkleRoot = computeMerkleRoot(transaction);
+    const merkleRoot = computeMerkleRoot(transaction); // transaction in natural order
     return merkleRoot;
 }
 
