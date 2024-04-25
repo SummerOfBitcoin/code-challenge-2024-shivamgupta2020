@@ -8,7 +8,7 @@ const hexTime_reverse = bigToLittleEndian(hexTime)
 const block = {
     version: 20000000,//VERSION
     previousBlockHash: "0000000000000000000000000000000000000000000000000000000000000000",
-    merkleRootHash: "f2a7be701713f7e5b1d6bf4686a7313dbd7a0f621f7b94b910db17cde3ec4f2b",
+    merkleRootHash: "2b4fece3cd17db10b9947b1f620f7abd3d31a78646bfd6b1e5f7131770bea7f2",
     timeStamp: hexTime_reverse,
     difficultyTarget: "0000ffff00000000000000000000000000000000000000000000000000000000",
     nonce: 0
